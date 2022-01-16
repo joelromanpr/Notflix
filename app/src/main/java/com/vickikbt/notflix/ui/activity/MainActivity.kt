@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Notflix)
         setContent {
             val settingsViewModel: SettingsViewModel = getViewModel()
 
