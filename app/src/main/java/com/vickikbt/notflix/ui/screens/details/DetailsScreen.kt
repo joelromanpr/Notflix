@@ -79,6 +79,7 @@ fun DetailsScreen(
     val isMovieFavorite = detailsViewModel.movieIsFavorite.observeAsState().value
 
     Timber.e("Is movie fav: $isMovieFavorite")
+    Timber.e("Movie videos: $movieVideo")
 
     LaunchedEffect(key1 = Unit) {
         launch {
@@ -245,21 +246,14 @@ fun DetailsScreen(
             DetailsAppBar(
                 scrollOffset = scrollOffset,
                 title = movieDetails?.title,
+                isFavorite = isMovieFavorite,
                 onNavigationIconClick = { navController.navigateUp() },
                 onShareIconClick = { shareMovie(context = context, movieId = movieId) },
                 onFavoriteIconClick = {
-                    if (isMovieFavorite != null && isMovieFavorite == true) {
-                        updateMovieFavorite(
-                            viewModel = detailsViewModel,
-                            isFavorite = false,
-                            cacheId = cacheId
-                        )
-                    } else if (isMovieFavorite != null && isMovieFavorite == false) {
-                        updateMovieFavorite(
-                            viewModel = detailsViewModel,
-                            isFavorite = true,
-                            cacheId = cacheId
-                        )
+                    if (isMovieFavorite == null || isMovieFavorite == false) {
+                        detailsViewModel.updateFavorite(cacheId = cacheId, isFavorite = true)
+                    } else if (isMovieFavorite != null && isMovieFavorite == true) {
+                        detailsViewModel.updateFavorite(cacheId = cacheId, isFavorite = false)
                     }
                 })
             //endregion
@@ -379,8 +373,6 @@ fun MoviePoster(
     }
 }
 
-private fun updateMovieFavorite(isFavorite: Boolean, cacheId: Int, viewModel: DetailsViewModel) =
-    viewModel.updateFavorite(cacheId = cacheId, isFavorite = isFavorite)
 
 private fun shareMovie(context: Context, movieId: Int) {
     val shareIntent = Intent()

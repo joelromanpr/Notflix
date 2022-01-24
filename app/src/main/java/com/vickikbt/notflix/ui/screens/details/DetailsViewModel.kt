@@ -14,6 +14,7 @@ import com.vickikbt.domain.models.MovieVideo
 import com.vickikbt.domain.models.SimilarMovies
 import com.vickikbt.repository.repository.movie_details_repository.MovieDetailsRepository
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -37,25 +38,25 @@ class DetailsViewModel(
     val movieIsFavorite: LiveData<Boolean?> get() = _movieIsFavorite
 
     fun getMovieDetails(movieId: Int) = viewModelScope.launch {
-        movieDetailsRepository.getMovieDetails(movieId).collect {
+        movieDetailsRepository.getMovieDetails(movieId).collectLatest {
             _movieDetails.value = it
         }
     }
 
     fun getMovieCast(movieId: Int) = viewModelScope.launch {
-        movieDetailsRepository.getMovieCast(movieId).collect {
+        movieDetailsRepository.getMovieCast(movieId).collectLatest {
             _movieCast.value = it
         }
     }
 
     fun getMovieVideo(movieId: Int) = viewModelScope.launch {
-        movieDetailsRepository.getMovieVideos(movieId).collect {
+        movieDetailsRepository.getMovieVideos(movieId).collectLatest {
             _movieVideo.value = it
         }
     }
 
     fun fetchSimilarMovies(movieId: Int) = viewModelScope.launch {
-        movieDetailsRepository.fetchSimilarMovies(movieId).collect {
+        movieDetailsRepository.fetchSimilarMovies(movieId).collectLatest {
             _similarMovies.value = it
         }
     }
@@ -94,7 +95,7 @@ class DetailsViewModel(
 
     fun getIsMovieFavorite(movieId: Int) {
         viewModelScope.launch {
-            movieDetailsRepository.isMovieFavorite(movieId).collect {
+            movieDetailsRepository.isMovieFavorite(movieId).collectLatest {
                 _movieIsFavorite.value = it
             }
         }

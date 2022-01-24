@@ -19,6 +19,7 @@ fun DetailsAppBar(
     modifier: Modifier = Modifier,
     scrollOffset: Float,
     title: String?,
+    isFavorite: Boolean? = false,
     onNavigationIconClick: () -> Unit,
     onShareIconClick: () -> Unit,
     onFavoriteIconClick: () -> Unit
@@ -58,7 +59,9 @@ fun DetailsAppBar(
 
             IconButton(onClick = { onFavoriteIconClick() }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_favourite),
+                    painter = if (isFavorite != null && isFavorite) painterResource(id = R.drawable.ic_favorite_selected) else painterResource(
+                        id = R.drawable.ic_favourite
+                    ),
                     contentDescription = stringResource(id = R.string.title_favorites),
                     tint = MaterialTheme.colors.onSurface
                 )

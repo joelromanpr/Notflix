@@ -59,7 +59,7 @@ fun MovieRatingSection(popularity: String?, voteAverage: Float?) {
 
         Divider(
             modifier = Modifier
-                .fillMaxHeight()
+                .height(58.dp)
                 .width(2.dp),
             color = MaterialTheme.colors.onSurface
         )
