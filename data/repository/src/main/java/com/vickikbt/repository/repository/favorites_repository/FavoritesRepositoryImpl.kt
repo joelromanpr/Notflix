@@ -7,7 +7,7 @@ import com.vickikbt.repository.mappers.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class FavoriteMovieRepositoryImpl constructor(
+class FavoritesRepositoryImpl constructor(
     private val appDatabase: AppDatabase
 ) : FavoritesRepository, SafeApiRequest() {
 

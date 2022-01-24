@@ -1,7 +1,7 @@
 package com.vickikbt.repository.di
 
 import androidx.paging.ExperimentalPagingApi
-import com.vickikbt.repository.repository.favorites_repository.FavoriteMovieRepositoryImpl
+import com.vickikbt.repository.repository.favorites_repository.FavoritesRepositoryImpl
 import com.vickikbt.repository.repository.favorites_repository.FavoritesRepository
 import com.vickikbt.repository.repository.movie_details_repository.MovieDetailsRepository
 import com.vickikbt.repository.repository.movie_details_repository.MovieDetailsRepositoryImpl
@@ -27,7 +27,7 @@ val repositoryModule = module {
     }
 
     single<FavoritesRepository> {
-        FavoriteMovieRepositoryImpl(appDatabase = get())
+        FavoritesRepositoryImpl(appDatabase = get())
     }
 
 
